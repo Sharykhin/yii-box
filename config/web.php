@@ -43,6 +43,12 @@ $config = [
         ],
         'db' => require(__DIR__ . '/db.php'),
     ],
+    'modules'=>[
+        'backend'=>[
+            'class' => 'app\modules\backend\Module',
+        ]
+
+    ],
     'params' => $params,
 ];
 
