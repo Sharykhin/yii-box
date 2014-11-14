@@ -18,6 +18,15 @@ class m141112_053609_create_users_table extends Migration
 
         ]);
 
+        $this->insert('users',[
+            'username'=>'admin',
+            'email'=>'admin@admin.com',
+            'password'=>'123',
+            'salt'=>'',
+            'first_name'=>'John',
+            'last_name'=>'McClane'
+        ]);
+
         echo "Table users has been created". PHP_EOL;
     }
 
