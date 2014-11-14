@@ -25,27 +25,52 @@ AppAsset::register($this);
 <?php $this->beginBody() ?>
 <div class="wrap">
     <?php
-    NavBar::begin([
-        'brandLabel' => 'My Company',
-        'brandUrl' => Yii::$app->homeUrl,
-        'options' => [
-            'class' => 'navbar-inverse navbar-fixed-top',
-        ],
-    ]);
-    echo Nav::widget([
-        'options' => ['class' => 'navbar-nav navbar-right'],
-        'items' => [
-            ['label' => 'Home', 'url' => ['/site/index']],
-            ['label' => 'About', 'url' => ['/site/about']],
-            ['label' => 'Contact', 'url' => ['/site/contact']],
-            Yii::$app->user->isGuest ?
-                ['label' => 'Login', 'url' => ['/site/login']] :
-                ['label' => 'Logout (' . Yii::$app->user->identity->username . ')',
-                    'url' => ['/site/logout'],
-                    'linkOptions' => ['data-method' => 'post']],
-        ],
-    ]);
-    NavBar::end();
+    if(Yii::$app->user->can('admin')) {
+        NavBar::begin([
+            'brandLabel' => Yii::$app->name,
+            'brandUrl' => Yii::$app->homeUrl,
+            'options' => [
+                'class' => 'navbar-inverse navbar-fixed-top',
+            ],
+        ]);
+        echo Nav::widget([
+          'options' => ['class' => 'navbar-nav navbar-left'],
+            'items' => [
+                ['label' => '', 'url' => ['/site/index']],
+                [
+                    'label' => 'Management','items'=>[
+                        [ 'label'=>'Users','url'=>['site/index'],],
+                        [ 'label'=>'Pages','url'=>['site/index'],],
+                        '<li class="divider"></li>',
+                        [ 'label'=>'Settings','url'=>['site/index'],],
+
+
+                    ]
+                ],
+                '<form class="navbar-form navbar-left" role="search">
+                  <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Search">
+                  </div>
+                  <button type="submit" class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button>
+                </form>',
+
+            ],
+        ]);
+        echo Nav::widget([
+            'options' => ['class' => 'navbar-nav navbar-right'],
+            'items' => [
+                ['label' => 'Contact', 'url' => ['/site/contact']],
+                [
+                    'label' => Yii::$app->user->identity->first_name.' '.Yii::$app->user->identity->last_name,
+                    'items'=>[
+                        ['label'=>'Logout','url'=>['/site/logout'],'linkOptions'=>['data-method' => 'post']],
+                        ['label'=>'Change password']
+                    ]
+                ],
+            ],
+        ]);
+        NavBar::end();
+    }
     ?>
 
     <div class="container">
