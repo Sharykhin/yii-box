@@ -11,7 +11,6 @@ use Yii;
  * @property string $username
  * @property string $email
  * @property string $password
- * @property string $salt
  * @property string $first_name
  * @property string $last_name
  */
@@ -31,8 +30,8 @@ class Users extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     public function rules()
     {
         return [
-            [['username', 'email', 'password', 'salt'], 'required'],
-            [['username', 'email', 'password', 'salt'], 'string', 'max' => 255],
+            [['username', 'email', 'password'], 'required'],
+            [['username', 'email', 'password'], 'string', 'max' => 255],
             [['first_name', 'last_name'], 'string', 'max' => 50],
             [['email'], 'unique']
         ];
@@ -45,10 +44,9 @@ class Users extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     {
         return [
             'id' => 'ID',
-            'username' => 'Username',
-            'email' => 'Email',
-            'password' => 'Password',
-            'salt' => 'Salt',
+            'username' => Yii::t('app','Username'),
+            'email' => Yii::t('app','Email'),
+            'password' => Yii::t('app','Password'),
             'first_name' => 'First Name',
             'last_name' => 'Last Name',
         ];
