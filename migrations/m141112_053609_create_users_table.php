@@ -12,7 +12,6 @@ class m141112_053609_create_users_table extends Migration
             'username' => Schema::TYPE_STRING . ' NOT NULL',
             'email' => Schema::TYPE_STRING . ' NULL',
             'password'=> Schema::TYPE_STRING . ' NOT NULL',
-            'salt'=> Schema::TYPE_STRING . '  NULL',
             'first_name'=> Schema::TYPE_STRING . '  NULL',
             'last_name'=> Schema::TYPE_STRING . '  NULL',
 
@@ -21,8 +20,7 @@ class m141112_053609_create_users_table extends Migration
         $this->insert('users',[
             'username'=>'admin',
             'email'=>'admin@admin.com',
-            'password'=>'123',
-            'salt'=>'',
+            'password'=>'$2y$10$5VcBhwzsCR9DQ7YIf6TEouPVlC1SuL64OhCvQBwMR73ecoNlp/YgO', //123
             'first_name'=>'John',
             'last_name'=>'McClane'
         ]);

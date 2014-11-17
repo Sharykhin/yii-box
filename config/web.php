@@ -6,6 +6,9 @@ $config = [
     'id' => 'basic',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
+    'sourceLanguage'=>'en',
+    'name'=>'Yii-box',
+    'language'=>'en',
     'components' => [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
@@ -21,6 +24,13 @@ $config = [
         'authManager' => [
             'class' => 'yii\rbac\DbManager',
             'defaultRoles' => ['guest'],
+        ],
+        'i18n' => [
+            'translations' => [
+                '*' => [
+                    'class' => 'yii\i18n\PhpMessageSource'
+                ],
+            ],
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',

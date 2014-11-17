@@ -4,7 +4,7 @@ use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
-
+use app\modules\backend\Module;
 /* @var $this \yii\web\View */
 /* @var $content string */
 
@@ -38,11 +38,11 @@ AppAsset::register($this);
             'items' => [
                 ['label' => '', 'url' => ['/site/index']],
                 [
-                    'label' => 'Management','items'=>[
-                        [ 'label'=>'Users','url'=>['site/index'],],
-                        [ 'label'=>'Pages','url'=>['site/index'],],
+                    'label' => Module::t('base','Management'),'items'=>[
+                        [ 'label'=>Module::t('base','Users'),'url'=>['site/index'],],
+                        [ 'label'=>Module::t('base','Pages'),'url'=>['site/index'],],
                         '<li class="divider"></li>',
-                        [ 'label'=>'Settings','url'=>['site/index'],],
+                        [ 'label'=>Module::t('base','Settings'),'url'=>['site/index'],],
 
 
                     ]
@@ -59,12 +59,11 @@ AppAsset::register($this);
         echo Nav::widget([
             'options' => ['class' => 'navbar-nav navbar-right'],
             'items' => [
-                ['label' => 'Contact', 'url' => ['/site/contact']],
                 [
                     'label' => Yii::$app->user->identity->first_name.' '.Yii::$app->user->identity->last_name,
                     'items'=>[
-                        ['label'=>'Logout','url'=>['/site/logout'],'linkOptions'=>['data-method' => 'post']],
-                        ['label'=>'Change password']
+                        ['label'=>Module::t('base','Logout'),'url'=>['/site/logout'],'linkOptions'=>['data-method' => 'post']],
+                        ['label'=>Module::t('base','Change password')]
                     ]
                 ],
             ],
@@ -83,7 +82,7 @@ AppAsset::register($this);
 
 <footer class="footer">
     <div class="container">
-        <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
+        <p class="pull-left">&copy; <?= Yii::$app->name; ?> <?= date('Y') ?></p>
         <p class="pull-right"><?= Yii::powered() ?></p>
     </div>
 </footer>
