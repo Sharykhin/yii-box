@@ -6,6 +6,8 @@ return [
     'Please fill out the following fields to login:'=>'Пожалуйста, заполните поля для входа',
     'Username'=>'Имя пользователя',
     'Password'=>'Пароль',
-    'Remember me'=>'Запомнить меня'
+    'Remember me'=>'Запомнить меня',
+    'First Name'=>'Имя',
+    'Last Name'=>'Фамилия'
 
 ];

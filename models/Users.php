@@ -47,8 +47,8 @@ class Users extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
             'username' => Yii::t('app','Username'),
             'email' => Yii::t('app','Email'),
             'password' => Yii::t('app','Password'),
-            'first_name' => 'First Name',
-            'last_name' => 'Last Name',
+            'first_name' => Yii::t('app','First Name'),
+            'last_name' => Yii::t('app','Last Name'),
         ];
     }
 
