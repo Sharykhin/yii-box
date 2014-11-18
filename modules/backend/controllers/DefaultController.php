@@ -19,9 +19,9 @@ class DefaultController extends Controller
 
             $model = new LoginForm();
             if ($model->load(Yii::$app->request->post()) && $model->login()) {
-                if(!Yii::$app->user->can('admin')) {
+                if(!Yii::$app->user->can('ROLE_ADMIN')) {
                     $authManager = Yii::$app->authManager;
-                    $role = $authManager->createRole('admin');
+                    $role = $authManager->createRole('ROLE_ADMIN');
                     $role->description = 'Admin role';
                     $authManager->add($role);
                     $authManager->assign($role,Yii::$app->user->id);

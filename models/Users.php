@@ -13,9 +13,16 @@ use Yii;
  * @property string $password
  * @property string $first_name
  * @property string $last_name
+ * @property string $role
  */
 class Users extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
 {
+    // holds the password confirmation word
+    public $repeatPassword;
+    // holds selected role for user
+    public  $role;
+
+
     /**
      * @inheritdoc
      */
@@ -31,10 +38,23 @@ class Users extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     {
         return [
             [['username', 'email', 'password'], 'required'],
+            [ 'repeatPassword', 'compare', 'compareAttribute'=>'password'],
             [['username', 'email', 'password'], 'string', 'max' => 255],
             [['first_name', 'last_name'], 'string', 'max' => 50],
-            [['email'], 'unique']
+            [['email'], 'unique'],
+            [['email'],'email']
         ];
+    }
+
+    public function afterSave($insert)
+    {
+        $roleTitle = Yii::$app->request->post()['Users']['role'];
+        $authManager = Yii::$app->authManager;
+        $role = $authManager->createRole($roleTitle);
+        $role->description = $roleTitle.' role';
+        $authManager->add($role);
+        $authManager->assign($role,$this->id);
+        return parent::beforeSave($insert);
     }
 
     /**
@@ -49,6 +69,8 @@ class Users extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
             'password' => Yii::t('app','Password'),
             'first_name' => Yii::t('app','First Name'),
             'last_name' => Yii::t('app','Last Name'),
+            'repeatPassword'=>Yii::t('app','Repeat password'),
+            'role'=>Yii::t('app','Role'),
         ];
     }
 

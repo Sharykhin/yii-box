@@ -8,6 +8,8 @@ return [
     'Password'=>'Пароль',
     'Remember me'=>'Запомнить меня',
     'First Name'=>'Имя',
-    'Last Name'=>'Фамилия'
+    'Last Name'=>'Фамилия',
+    'Repeat password'=>'Повторите пароль',
+    'Role'=>'Роль'
 
 ];
