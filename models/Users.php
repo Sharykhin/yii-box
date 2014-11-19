@@ -50,10 +50,9 @@ class Users extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     {
         $roleTitle = Yii::$app->request->post()['Users']['role'];
         $authManager = Yii::$app->authManager;
-        $role = $authManager->createRole($roleTitle);
-        $role->description = $roleTitle.' role';
-        $authManager->add($role);
+        $role = $authManager->getRole($roleTitle);
         $authManager->assign($role,$this->id);
+
         return parent::beforeSave($insert);
     }
 

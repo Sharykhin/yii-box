@@ -12,7 +12,7 @@ class DefaultController extends Controller
 
     public function actionIndex()
     {
-        if(\Yii::$app->user->can('admin')) {
+        if(\Yii::$app->user->can('ROLE_ADMIN')) {
 
             return $this->render('index');
         } else {

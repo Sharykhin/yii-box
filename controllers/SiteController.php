@@ -51,6 +51,7 @@ class SiteController extends Controller
 
     public function actionIndex()
     {
+        $row = (new \yii\db\Query())->select('id')->from('users')->where(['username'=>'admin'])->one();
         return $this->render('index');
     }
 
