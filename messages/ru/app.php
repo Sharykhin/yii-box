@@ -10,6 +10,7 @@ return [
     'First Name'=>'Имя',
     'Last Name'=>'Фамилия',
     'Repeat password'=>'Повторите пароль',
-    'Role'=>'Роль'
+    'Role'=>'Роль',
+    'Avatar'=>'Фотография'
 
 ];

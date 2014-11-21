@@ -26,5 +26,8 @@ phpunit.phar
 # local phpunit config
 /phpunit.xml
 
+uploads/users/avatars/*.jpg
+!uploads/users/avatars/default_avatar.jpg
+
 #db params
 config/db.php

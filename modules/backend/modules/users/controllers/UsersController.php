@@ -84,6 +84,8 @@ class UsersController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
+            $userRoles = array_keys(Yii::$app->authManager->getRolesByUser($id));
+            $model->role=$userRoles[0];
             return $this->render('update', [
                 'model' => $model,
             ]);

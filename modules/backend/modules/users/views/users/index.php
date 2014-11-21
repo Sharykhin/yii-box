@@ -21,7 +21,7 @@ $this->params['breadcrumbs'][] = $this->title;
     'modelClass' => 'Users',
 ]), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
-
+    <?php \yii\widgets\Pjax::begin(); ?>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
@@ -33,9 +33,19 @@ $this->params['breadcrumbs'][] = $this->title;
             'email:email',
             'first_name',
             'last_name',
+            [
+                'attribute'=>'avatar',
+                'format'=>'raw',
+                'label'=>Yii::t('app','Avatar'),
+                'value'=>function($model) {
+                    $avatar = ($model->avatar) ? $model->avatar : 'default_avatar.jpg';
+                    return Html::img('uploads/users/avatars/'.$avatar,['width'=>80]);
+                }
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
+    <?php \yii\widgets\Pjax::end(); ?>
 
 </div>

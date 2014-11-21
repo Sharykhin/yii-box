@@ -34,6 +34,13 @@ $this->params['breadcrumbs'][] = $this->title;
             'email:email',
             'first_name',
             'last_name',
+            'role',
+            [
+                'attribute'=>'avatar',
+                'label' => Yii::t('app','Avatar'),
+                'format'=>'raw',
+                'value' =>Html::img("uploads/users/avatars/".$model->avatar,['width'=>200]) ,
+            ],
         ],
     ]) ?>
 

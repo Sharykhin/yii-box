@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\web\UploadedFile;
 
 /**
  * This is the model class for table "users".
@@ -14,6 +15,7 @@ use Yii;
  * @property string $first_name
  * @property string $last_name
  * @property string $role
+ * @property string $avatar
  */
 class Users extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
 {
@@ -42,8 +44,21 @@ class Users extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
             [['username', 'email', 'password'], 'string', 'max' => 255],
             [['first_name', 'last_name'], 'string', 'max' => 50],
             [['email'], 'unique'],
+            [['avatar'], 'file', 'extensions' => 'jpg, png', 'mimeTypes' => 'image/jpeg, image/png',],
             [['email'],'email']
         ];
+    }
+
+    public function afterFind()
+    {
+        $this->role=array_keys(Yii::$app->authManager->getRolesByUser($this->id))[0];
+    }
+
+    public function beforeSave($insert)
+    {
+        $avatar = UploadedFile::getInstance($this, 'avatar');
+        $this->avatar =$avatar->baseName.'.'.$avatar->extension;
+        return parent::beforeSave($insert);
     }
 
     public function afterSave($insert)
@@ -51,7 +66,14 @@ class Users extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
         $roleTitle = Yii::$app->request->post()['Users']['role'];
         $authManager = Yii::$app->authManager;
         $role = $authManager->getRole($roleTitle);
+        $userRoles = $authManager->getRolesByUser($this->id);
+        foreach($userRoles as $roleKey=>$roleInstance):
+            $authManager->revoke($roleInstance,$this->id);
+        endforeach;
         $authManager->assign($role,$this->id);
+
+        $this->avatar = UploadedFile::getInstance($this, 'avatar');
+        $this->avatar->saveAs('uploads/users/avatars/' . $this->avatar->baseName . '.' . $this->avatar->extension);
 
         return parent::beforeSave($insert);
     }

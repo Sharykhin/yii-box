@@ -26,7 +26,7 @@ class RbacController extends Controller
     public function actionIndex()
     {
         $this->stdout('rbac manager: there are two available methods'.PHP_EOL,Console::FG_YELLOW);
-        $this->stdout(' -create'.PHP_EOL.' -remove'.PHP_EOL,Console::FG_BLUE);
+        $this->stdout(' -create'.PHP_EOL.' -remove'.PHP_EOL.' -relations'.PHP_EOL,Console::FG_BLUE);
     }
 
     public function actionCreate()
@@ -59,6 +59,35 @@ class RbacController extends Controller
             $this->stdout("Current user doesn't exist in database.".PHP_EOL,Console::FG_RED);
 
         }
+        return 1;
+
+    }
+
+    public function actionRelations()
+    {
+        $authManager = \Yii::$app->authManager;
+        $roles = $authManager->getRoles();
+        $this->stdout("Enter parent role: ",Console::FG_YELLOW);
+        $roleParent = trim(fgets(STDIN,1024));
+        if(!array_key_exists($roleParent,$roles)) {
+            $this->stdout("There is no role with such name.".PHP_EOL,Console::FG_RED);
+            return 1;
+        }
+        $this->stdout("Enter child role: ",Console::FG_YELLOW);
+        $roleChild = trim(fgets(STDIN,1024));
+        if(!array_key_exists($roleChild,$roles)) {
+            $this->stdout("There is no role with such name.".PHP_EOL,Console::FG_RED);
+            return 1;
+        }
+        if($roleParent === $roleChild) {
+            $this->stdout("You can't make relations with the same roles.".PHP_EOL,Console::FG_RED);
+            return 1;
+        }
+
+        $roleParentInstance = $authManager->getRole($roleParent);
+        $roleChildInstance = $authManager->getRole($roleChild);
+        $authManager->addChild($roleParentInstance,$roleChildInstance);
+        $this->stdout($roleChild." has been set as child of ".$roleParent.PHP_EOL,Console::FG_GREEN);
         return 1;
 
     }

@@ -10,7 +10,7 @@ use yii\widgets\ActiveForm;
 
 <div class="users-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
 
     <?= $form->field($model, 'username')->textInput(['maxlength' => 255]) ?>
 
@@ -23,6 +23,9 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'first_name')->textInput(['maxlength' => 255]) ?>
 
     <?= $form->field($model, 'last_name')->textInput(['maxlength' => 255]) ?>
+
+    <?= $form->field($model, 'avatar')->fileInput() ?>
+
     <?php if(Yii::$app->user->can('ROLE_SUPER_ADMIN')) { ?>
         <?php
             $roles = Yii::$app->authManager->getRoles();

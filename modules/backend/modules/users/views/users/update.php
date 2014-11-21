@@ -11,7 +11,7 @@ $this->title = Module::t('base', 'Update {modelClass}: ', [
 ]) . ' ' . $model->username;
 $this->params['breadcrumbs'][] = ['label' => Module::t('base', 'Users'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->username, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = Yii::t('base', 'Update');
+$this->params['breadcrumbs'][] = Yii::t('common', 'Update');
 ?>
 <div class="users-update">
 
