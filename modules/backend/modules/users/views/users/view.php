@@ -39,7 +39,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute'=>'avatar',
                 'label' => Yii::t('app','Avatar'),
                 'format'=>'raw',
-                'value' =>Html::img("uploads/users/avatars/".$model->avatar,['width'=>200]) ,
+                'value' =>Html::img("uploads/users/avatars/".(($model->avatar) ? $model->avatar : 'default_avatar.jpg' ),['width'=>200]) ,
             ],
         ],
     ]) ?>

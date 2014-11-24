@@ -24,6 +24,7 @@ class Users extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     // holds selected role for user
     public  $role;
 
+    const UPLOADS_AVATARS_DIR='uploads/users/avatars';
 
     /**
      * @inheritdoc
@@ -57,8 +58,22 @@ class Users extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     public function beforeSave($insert)
     {
         $avatar = UploadedFile::getInstance($this, 'avatar');
-        $this->avatar =$avatar->baseName.'.'.$avatar->extension;
+        if(!is_null($avatar)) {
+            if($this->avatar) {
+                if(file_exists((Yii::$app->basePath.'/web/'.self::UPLOADS_AVATARS_DIR.'/'.$this->avatar))) {
+                   unlink(Yii::$app->basePath . '/web/' . self::UPLOADS_AVATARS_DIR . '/' . $this->avatar);
+                }
+            }
+            $this->avatar =$avatar->baseName.'.'.$avatar->extension;
+        }
         return parent::beforeSave($insert);
+    }
+
+    public function afterDelete()
+    {
+        if(!is_null($this->attributes['avatar'])) {
+            unlink(Yii::$app->basePath.'/web/'.self::UPLOADS_AVATARS_DIR.'/'.$this->attributes['avatar']);
+        }
     }
 
     public function afterSave($insert)
@@ -73,7 +88,9 @@ class Users extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
         $authManager->assign($role,$this->id);
 
         $this->avatar = UploadedFile::getInstance($this, 'avatar');
-        $this->avatar->saveAs('uploads/users/avatars/' . $this->avatar->baseName . '.' . $this->avatar->extension);
+        if(!is_null($this->avatar)) {
+            $this->avatar->saveAs(self::UPLOADS_AVATARS_DIR . '/' . $this->avatar->baseName . '.' . $this->avatar->extension);
+        }
 
         return parent::beforeSave($insert);
     }

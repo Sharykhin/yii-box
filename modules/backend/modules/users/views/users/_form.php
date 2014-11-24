@@ -24,7 +24,10 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'last_name')->textInput(['maxlength' => 255]) ?>
 
-    <?= $form->field($model, 'avatar')->fileInput() ?>
+    <?= $form->field($model, 'avatar')->fileInput(['value'=>$model->avatar]) ?>
+    <?php if(Yii::$app->controller->action->id === 'update') { ?>
+    <?php echo Html::img("uploads/users/avatars/".(($model->avatar) ? $model->avatar : 'default_avatar.jpg' ),['width'=>200]) ?>
+    <?php } ?>
 
     <?php if(Yii::$app->user->can('ROLE_SUPER_ADMIN')) { ?>
         <?php
@@ -43,3 +46,12 @@ use yii\widgets\ActiveForm;
     <?php ActiveForm::end(); ?>
 
 </div>
+<?php if(Yii::$app->controller->action->id === 'update') { ?>
+<script>
+    var fileValue = document.getElementById('users-avatar');
+    if(fileValue !== null && fileValue.getAttribute('value') !== '') {
+        var hiddenFiled = document.getElementsByName("Users[avatar]")[0];
+        hiddenFiled.setAttribute('value',fileValue.getAttribute('value'));
+    }
+</script>
+<?php } ?>
