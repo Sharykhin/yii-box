@@ -27,6 +27,11 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'avatar')->fileInput(['value'=>$model->avatar]) ?>
     <?php if(Yii::$app->controller->action->id === 'update') { ?>
     <?php echo Html::img("uploads/users/avatars/".(($model->avatar) ? $model->avatar : 'default_avatar.jpg' ),['width'=>200]) ?>
+        <?php if(!is_null($model->avatar)) { ?>
+        <?php echo  Html::a(Yii::t('app','Remove Avatar'), ['remove-avatar', 'id' => $model->id], ['class'=>'btn btn-danger','data-confirm'=>Yii::t('app','Are you sure to delete your avatar?'),'data-method'=>'post']) ?>
+        <?php } ?>
+
+
     <?php } ?>
 
     <?php if(Yii::$app->user->can('ROLE_SUPER_ADMIN')) { ?>

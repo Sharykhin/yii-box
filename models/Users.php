@@ -76,17 +76,23 @@ class Users extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
         }
     }
 
+    public function removeAvatar()
+    {
+        unlink(Yii::$app->basePath.'/web/'.self::UPLOADS_AVATARS_DIR.'/'.$this->attributes['avatar']);
+    }
+
     public function afterSave($insert)
     {
-        $roleTitle = Yii::$app->request->post()['Users']['role'];
-        $authManager = Yii::$app->authManager;
-        $role = $authManager->getRole($roleTitle);
-        $userRoles = $authManager->getRolesByUser($this->id);
-        foreach($userRoles as $roleKey=>$roleInstance):
-            $authManager->revoke($roleInstance,$this->id);
-        endforeach;
-        $authManager->assign($role,$this->id);
-
+        if(Yii::$app->request->isPost && isset(Yii::$app->request->post()['Users'])) {
+            $roleTitle = Yii::$app->request->post()['Users']['role'];
+            $authManager = Yii::$app->authManager;
+            $role = $authManager->getRole($roleTitle);
+            $userRoles = $authManager->getRolesByUser($this->id);
+            foreach($userRoles as $roleKey=>$roleInstance):
+                $authManager->revoke($roleInstance,$this->id);
+            endforeach;
+            $authManager->assign($role,$this->id);
+        }
         $this->avatar = UploadedFile::getInstance($this, 'avatar');
         if(!is_null($this->avatar)) {
             $this->avatar->saveAs(self::UPLOADS_AVATARS_DIR . '/' . $this->avatar->baseName . '.' . $this->avatar->extension);
@@ -109,6 +115,7 @@ class Users extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
             'last_name' => Yii::t('app','Last Name'),
             'repeatPassword'=>Yii::t('app','Repeat password'),
             'role'=>Yii::t('app','Role'),
+            'avatar'=>Yii::t('app','Avatar')
         ];
     }
 

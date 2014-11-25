@@ -92,6 +92,15 @@ class UsersController extends Controller
         }
     }
 
+    public function actionRemoveAvatar($id)
+    {
+        $model = $this->findModel($id);
+        $model->removeAvatar();
+        $model->avatar=null;
+        $model->save();
+        $this->redirect(['update','id'=>$id]);
+    }
+
     /**
      * Deletes an existing Users model.
      * If deletion is successful, the browser will be redirected to the 'index' page.

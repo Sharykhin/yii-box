@@ -11,6 +11,8 @@ return [
     'Last Name'=>'Фамилия',
     'Repeat password'=>'Повторите пароль',
     'Role'=>'Роль',
-    'Avatar'=>'Фотография'
+    'Avatar'=>'Фотография',
+    'Remove Avatar'=>'Удалить Фотографию',
+    'Are you sure to delete your avatar?'=>'Вы уверены что хотите удалить вашу фотографию?'
 
 ];
