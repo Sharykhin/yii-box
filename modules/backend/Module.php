@@ -15,6 +15,9 @@ class Module extends \yii\base\Module
             'users' => [
                 'class' => 'app\modules\backend\modules\users\Module',
             ],
+            'pages'=>[
+                'class'=>'app\modules\backend\modules\pages\Module'
+            ]
         ];
         $this->registerTranslations();
         // custom initialization code goes here
