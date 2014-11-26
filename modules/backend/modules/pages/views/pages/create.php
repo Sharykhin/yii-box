@@ -5,11 +5,13 @@ use app\modules\backend\modules\pages\Module;
 use app\modules\backend\Module as BackendModule;
 use yii\web\JqueryAsset;
 use app\assets\CkEditorAsset;
+use app\assets\HelperAsset;
 
 /* @var $this yii\web\View */
 /* @var $model app\modules\backend\modules\pages\models\Pages */
 
-$this->registerJsFile('js/modules/backend/pages/pages.js',['depends'=>[CkEditorAsset::className()]]);
+$this->registerJsFile('js/modules/backend/pages/pages.js',['depends'=>[CkEditorAsset::className(),HelperAsset::className()]]);
+
 
 $this->title = Module::t('base', 'Create Page');
 $this->params['breadcrumbs'][] = ['label' => BackendModule::t('base', 'Pages'), 'url' => ['index']];

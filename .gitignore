@@ -26,8 +26,12 @@ phpunit.phar
 # local phpunit config
 /phpunit.xml
 
-uploads/users/avatars/*.jpg
-!uploads/users/avatars/default_avatar.jpg
+web/uploads/users/avatars/*.jpg
+!web/uploads/users/avatars/default_avatar.jpg
+
+web/uploads/.thumbs/*
+web/uploads/images/*
+
 
 #db params
 config/db.php
