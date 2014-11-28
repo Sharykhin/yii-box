@@ -32,6 +32,8 @@ class PagesController extends Controller
      */
     public function actionIndex()
     {
+
+
         $searchModel = new PagesSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 

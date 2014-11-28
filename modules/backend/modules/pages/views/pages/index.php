@@ -20,22 +20,46 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
         <?= Html::a(Module::t('base', 'Create Page'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
-
+    <?php \yii\widgets\Pjax::begin(); ?>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
+            [
+                'attribute'=>'id',
+                'label'=>'ID',
+                'headerOptions'=>[
+                    'class'=>'width-80'
+                ]
+            ],
             'url:url',
-            'content:ntext',
             'title',
-            'date_created',
-            // 'date_modified',
+            [
+              'attribute'=>'date_created',
+              'filterInputOptions'=>[
+                 'class'=>'datepicker form-control',
+                 'data-date-format'=>'yyyy-mm-dd'
+
+              ]
+            ],
+            [
+                'attribute'=>'date_modified',
+                'filterInputOptions'=>[
+                    'class'=>'datepicker form-control',
+                    'data-date-format'=>'yyyy-mm-dd'
+
+                ]
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
+    <?php \yii\widgets\Pjax::end(); ?>
 
 </div>
+<?php
+\app\assets\BootstrapDatePickerAsset::register($this);
+$this->registerJs('$(".datepicker").datepicker();');
+?>

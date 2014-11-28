@@ -30,11 +30,21 @@ class Pages extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['content', 'title', 'date_created', 'date_modified'], 'required'],
+            [['content', 'title'], 'required'],
             [['content'], 'string'],
             [['date_created', 'date_modified'], 'safe'],
             [['url', 'title'], 'string', 'max' => 255]
         ];
+    }
+
+    public function beforeSave($insert)
+    {
+        $date = new \DateTime();
+        $this->date_modified=$date->format("Y-m-d");
+        if($insert) {
+            $this->date_created=$date->format("Y-m-d");
+        }
+        return parent::beforeSave($insert);
     }
 
     /**

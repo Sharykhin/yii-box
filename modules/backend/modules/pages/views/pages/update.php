@@ -1,9 +1,13 @@
 <?php
 
 use yii\helpers\Html;
-
+use yii\web\JqueryAsset;
+use app\assets\CkEditorAsset;
+use app\assets\HelperAsset;
 /* @var $this yii\web\View */
 /* @var $model app\modules\backend\modules\pages\models\Pages */
+
+$this->registerJsFile('js/modules/backend/pages/pages.js',['depends'=>[CkEditorAsset::className(),HelperAsset::className()]]);
 
 $this->title = Yii::t('base', 'Update {modelClass}: ', [
     'modelClass' => 'Pages',
