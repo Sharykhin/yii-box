@@ -15,13 +15,13 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="pages-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
-    <?php  echo $this->render('_search', ['model' => $searchModel]); ?>
+<!--    --><?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
         <?= Html::a(Module::t('base', 'Create Page'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
-<!--    --><?php //\yii\widgets\Pjax::begin(); ?>
-    
+    <?php \yii\widgets\Pjax::begin(); ?>
+
     <?= GridView::widget([
         'id' => 'page-grid-view',
         'dataProvider' => $dataProvider,
@@ -42,30 +42,15 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             'url:url',
             'title',
-            [
-              'attribute'=>'date_created',
-              'filterInputOptions'=>[
-                 'class'=>'datepicker form-control',
-                 'data-date-format'=>'yyyy-mm-dd'
-
-              ]
-            ],
-            [
-                'attribute'=>'date_modified',
-                'filterInputOptions'=>[
-                    'class'=>'datepicker form-control',
-                    'data-date-format'=>'yyyy-mm-dd'
-
-                ]
-            ],
-
+            'date_created',
+            'date_modified',
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
-<!--    --><?php //\yii\widgets\Pjax::end(); ?>
+    <?php
+    \app\assets\BootstrapDatePickerAsset::register($this);
+    $this->registerJs('$(\'table input[name^="PagesSearch[date_"]\').datepicker({ format: \'yyyy-mm-dd\'});');
+    ?>
+    <?php \yii\widgets\Pjax::end(); ?>
 
 </div>
-<?php
-\app\assets\BootstrapDatePickerAsset::register($this);
-$this->registerJs('$(".datepicker").datepicker();');
-?>
