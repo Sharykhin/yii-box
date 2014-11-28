@@ -5,6 +5,7 @@ return [
     'Title'=>'Заголовок',
     'Date Created'=>'Дата создания',
     'Date Modified'=>'Дата изменения',
-    'Create Page'=>'Создать страницу'
+    'Create Page'=>'Создать страницу',
+    'Update Page' => 'Редактировать страницу'
 
 ];
