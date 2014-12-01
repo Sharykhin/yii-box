@@ -17,6 +17,9 @@ class Module extends \yii\base\Module
             ],
             'pages'=>[
                 'class'=>'app\modules\backend\modules\pages\Module'
+            ],
+            'gallery'=>[
+                'class'=>'app\modules\backend\modules\gallery\Module'
             ]
         ];
         $this->registerTranslations();
