@@ -1,16 +1,14 @@
 <?php
 
 use yii\helpers\Html;
-
+use app\modules\backend\modules\gallery\Module;
 /* @var $this yii\web\View */
 /* @var $model app\modules\backend\modules\gallery\models\GalleryCategories */
 
-$this->title = Yii::t('base', 'Update {modelClass}: ', [
-    'modelClass' => 'Gallery Categories',
-]) . ' ' . $model->title;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('base', 'Gallery Categories'), 'url' => ['index']];
+$this->title = Yii::t('common', 'Update') . ' ' . $model->title;
+$this->params['breadcrumbs'][] = ['label' => Module::t('base', 'Gallery: categories'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->title, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = Yii::t('base', 'Update');
+$this->params['breadcrumbs'][] = Yii::t('common', 'Update');
 ?>
 <div class="gallery-categories-update">
 

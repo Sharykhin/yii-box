@@ -5,5 +5,6 @@ return [
     'Gallery: categories' => 'Галлерея: категории',
     'Manage images' => 'Управление изображениями',
     'Title'=>'Название',
+    'Update  category' => 'Редактирование категории',
     'Status'=>'Статус'
 ];

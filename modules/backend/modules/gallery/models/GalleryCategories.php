@@ -28,6 +28,7 @@ class GalleryCategories extends \yii\db\ActiveRecord
     {
         return [
             [['title'], 'required'],
+            ['title','unique'],
             [['status'], 'integer'],
             [['title'], 'string', 'max' => 255]
         ];
