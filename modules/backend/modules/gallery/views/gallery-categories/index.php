@@ -2,12 +2,13 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use app\modules\backend\modules\gallery\Module;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\modules\backend\modules\gallery\models\GalleryCategoriesSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('base', 'Gallery Categories');
+$this->title = Module::t('base', 'Gallery: categories');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="gallery-categories-index">
@@ -16,13 +17,11 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a(Yii::t('base', 'Create {modelClass}', [
-    'modelClass' => 'Gallery Categories',
-]), ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Module::t('base', 'Create category'), ['create'], ['class' => 'btn btn-success']) ?>
 
-        <?php echo Html::a('Manage images',['/backend/gallery/gallery-images'],['class'=>'btn btn-info']) ?>
+        <?php echo Html::a(Module::t('base','Manage images'),['/backend/gallery/gallery-images'],['class'=>'btn btn-info']) ?>
     </p>
-
+    <?php \yii\widgets\Pjax::begin(); ?>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
@@ -36,5 +35,6 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
+    <?php \yii\widgets\Pjax::end(); ?>
 
 </div>

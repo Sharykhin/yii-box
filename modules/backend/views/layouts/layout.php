@@ -42,6 +42,7 @@ AppAsset::register($this);
                     'label' => Module::t('base','Management'),'items'=>[
                         [ 'label'=>Module::t('base','Users'),'url'=>['/backend/users/users'],],
                         [ 'label'=>Module::t('base','Pages'),'url'=>['/backend/pages/pages'],],
+                        [ 'label'=>Module::t('base','Gallery'),'url'=>['/backend/gallery'],],
                         '<li class="divider"></li>',
                         [ 'label'=>Module::t('base','Settings'),'url'=>['site/index'],],
 

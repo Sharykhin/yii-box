@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use app\modules\backend\modules\gallery\Module;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\modules\backend\modules\gallery\models\GalleryImagesSearch */
@@ -20,7 +21,7 @@ $this->params['breadcrumbs'][] = $this->title;
     'modelClass' => 'Gallery Images',
 ]), ['create'], ['class' => 'btn btn-success']) ?>
 
-        <?php echo Html::a('Manage categories',['/backend/gallery/gallery-categories'],['class'=>'btn btn-info']) ?>
+        <?php echo Html::a(Module::t('base','Manage categories'),['/backend/gallery/gallery-categories'],['class'=>'btn btn-info']) ?>
     </p>
 
     <?= GridView::widget([

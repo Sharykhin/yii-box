@@ -1,7 +1,7 @@
 <?php
 
 namespace app\modules\backend\modules\gallery\models;
-
+use app\modules\backend\modules\gallery\Module;
 use Yii;
 
 /**
@@ -39,9 +39,9 @@ class GalleryCategories extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('base', 'ID'),
-            'title' => Yii::t('base', 'Title'),
-            'status' => Yii::t('base', 'Status'),
+            'id' => Module::t('base', 'ID'),
+            'title' => Module::t('base', 'Title'),
+            'status' => Module::t('base', 'Status'),
         ];
     }
 }
