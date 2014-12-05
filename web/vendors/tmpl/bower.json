@@ -1,0 +1,22 @@
+{
+  "name": "tmpl.js",
+  "main": "tmpl.js",
+  "version": "0.1.1",
+  "authors": [
+    "GC92 <GC92@ya.ru>"
+  ],
+  "description": "The easiest string templating.",
+  "keywords": [
+    "tmpl",
+    "templates",
+    "replace",
+    "string"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/*",
+    "!tmpl.min.js",
+    "!tmpl.js"
+  ],
+  "homepage": "https://github.com/GC92/tmpl"
+}

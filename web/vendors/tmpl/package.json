@@ -1,0 +1,26 @@
+{
+  "name": "tmpl.js",
+  "version": "0.1.1",
+  "description": "The easiest string templating.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/GC92/tmpl"
+  },
+  "keywords": [
+    "tmpl",
+    "templates",
+    "replace",
+    "string"
+  ],
+  "author": "GC92",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/GC92/tmpl/issues"
+  },
+  "homepage": "https://github.com/GC92/tmpl",
+  "dependencies": {
+    "gulp": "^3.8.5",
+    "gulp-uglify": "^0.3.1",
+    "gulp-rename": "^1.2.0"
+  }
+}
