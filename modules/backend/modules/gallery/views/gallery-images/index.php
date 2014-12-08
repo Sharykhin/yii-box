@@ -8,7 +8,7 @@ use app\modules\backend\modules\gallery\Module;
 /* @var $searchModel app\modules\backend\modules\gallery\models\GalleryImagesSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('base', 'Gallery Images');
+$this->title = Module::t('base', 'Gallery: images');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="gallery-images-index">
@@ -17,9 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a(Yii::t('base', 'Create {modelClass}', [
-    'modelClass' => 'Gallery Images',
-]), ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Module::t('base', 'Create gallery', []), ['create'], ['class' => 'btn btn-success']) ?>
 
         <?php echo Html::a(Module::t('base','Manage categories'),['/backend/gallery/gallery-categories'],['class'=>'btn btn-info']) ?>
     </p>

@@ -4,6 +4,7 @@ namespace app\modules\backend\modules\gallery\controllers;
 
 use Yii;
 use app\modules\backend\modules\gallery\models\GalleryImages;
+use app\modules\backend\modules\gallery\models\GalleryCategories;
 use app\modules\backend\modules\gallery\models\GalleryImagesSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -62,11 +63,20 @@ class GalleryImagesController extends Controller
     {
         $model = new GalleryImages();
 
+        $categoriesInstanses = GalleryCategories::find()->all();
+        $categories = [];
+        if(!empty($categoriesInstanses)) {
+            foreach($categoriesInstanses as $categoryInstance) :
+                $categories[$categoryInstance->id]=$categoryInstance->type;
+            endforeach;
+        }
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
                 'model' => $model,
+                'categories'=>$categories
             ]);
         }
     }

@@ -2,6 +2,7 @@
 
 namespace app\modules\backend\modules\gallery\models;
 
+use app\modules\backend\modules\gallery\Module;
 use Yii;
 
 /**
@@ -10,6 +11,7 @@ use Yii;
  * @property integer $id
  * @property string $big_path
  * @property string $small_path
+ * @property integer $category_id
  * @property integer $status
  */
 class GalleryImages extends \yii\db\ActiveRecord
@@ -43,7 +45,14 @@ class GalleryImages extends \yii\db\ActiveRecord
             'id' => Yii::t('base', 'ID'),
             'big_path' => Yii::t('base', 'Big Path'),
             'small_path' => Yii::t('base', 'Small Path'),
-            'status' => Yii::t('base', 'Status'),
+            'category_id' => Module::t('base', 'Type'),
+            'status' => Module::t('base', 'Status'),
         ];
+    }
+
+    public function getCategories()
+    {
+        //return $this->hasMany(GalleryCategories::className(), ['category_id' => 'id']);
+        return $this->hasOne(GalleryCategories::className(), ['id' => 'category_id']);
     }
 }

@@ -30,7 +30,17 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'id',
             'title',
-            'status',
+            'type',
+            [
+                'attribute' => 'status',
+                'filter'=>[
+                    '1'=>Yii::t('common','Enable'),
+                    '0'=>Yii::t('common','Disable')
+                ],
+                'value' => function($item) {
+                        return ($item->status) ? Yii::t('common','Enable') : Yii::t('common','Disable');
+                    }
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

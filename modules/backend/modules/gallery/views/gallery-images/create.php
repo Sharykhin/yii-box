@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use app\assets\JqueryFileUpload;
+use app\modules\backend\modules\gallery\Module;
 
 /* @var $this yii\web\View */
 /* @var $model app\modules\backend\modules\gallery\models\GalleryImages */
@@ -9,7 +10,7 @@ use app\assets\JqueryFileUpload;
 $this->title = Yii::t('base', 'Create {modelClass}', [
     'modelClass' => 'Gallery Images',
 ]);
-$this->params['breadcrumbs'][] = ['label' => Yii::t('base', 'Gallery Images'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' =>  Module::t('base', 'Gallery: images'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <?php
@@ -21,6 +22,7 @@ $this->registerJsFile('vendors/jquery-fileupload/js/main.js',['depends'=>[Jquery
 
     <?= $this->render('_form', [
         'model' => $model,
+        'categories'=>$categories
     ]) ?>
 
     <form id="fileupload" action="//jquery-file-upload.appspot.com/" method="POST" enctype="multipart/form-data">

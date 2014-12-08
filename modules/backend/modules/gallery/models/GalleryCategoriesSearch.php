@@ -19,7 +19,7 @@ class GalleryCategoriesSearch extends GalleryCategories
     {
         return [
             [['id', 'status'], 'integer'],
-            [['title'], 'safe'],
+            [['title','type'], 'safe'],
         ];
     }
 
@@ -57,6 +57,7 @@ class GalleryCategoriesSearch extends GalleryCategories
         ]);
 
         $query->andFilterWhere(['like', 'title', $this->title]);
+        $query->andFilterWhere(['like', 'type', $this->type]);
 
         return $dataProvider;
     }

@@ -9,6 +9,7 @@ use Yii;
  *
  * @property integer $id
  * @property string $title
+ * @property string $type
  * @property integer $status
  */
 class GalleryCategories extends \yii\db\ActiveRecord
@@ -30,7 +31,7 @@ class GalleryCategories extends \yii\db\ActiveRecord
             [['title'], 'required'],
             ['title','unique'],
             [['status'], 'integer'],
-            [['title'], 'string', 'max' => 255]
+            [['title','type'], 'string', 'max' => 255]
         ];
     }
 
@@ -43,6 +44,7 @@ class GalleryCategories extends \yii\db\ActiveRecord
             'id' => Module::t('base', 'ID'),
             'title' => Module::t('base', 'Title'),
             'status' => Module::t('base', 'Status'),
+            'type' =>  Module::t('base', 'Type'),
         ];
     }
 }

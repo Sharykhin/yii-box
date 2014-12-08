@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use app\modules\backend\modules\gallery\models\GalleryCategories;
 
 /* @var $this yii\web\View */
 /* @var $model app\modules\backend\modules\gallery\models\GalleryImages */
@@ -12,11 +13,12 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'big_path')->textInput(['maxlength' => 255]) ?>
+    <?= $form->field($model, 'category_id')->dropDownList($categories); ?>
 
-    <?= $form->field($model, 'small_path')->textInput(['maxlength' => 255]) ?>
-
-    <?= $form->field($model, 'status')->textInput() ?>
+    <?= $form->field($model, 'status')->dropDownList([
+        '1' => Yii::t('common','Enable'),
+        '0' => Yii::t('common','Disable')
+    ]) ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? Yii::t('base', 'Create') : Yii::t('base', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

@@ -14,6 +14,8 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => 255]) ?>
 
+    <?= $form->field($model, 'type')->textInput(['maxlength' => 255]) ?>
+
     <?= $form->field($model, 'status')->dropDownList([
         '1' => Yii::t('common','Enable'),
         '0' => Yii::t('common','Disable')

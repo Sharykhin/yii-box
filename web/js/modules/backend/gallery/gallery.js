@@ -1,0 +1,1 @@
+Helper.addEventCyr2Lat('#gallerycategories-title','#gallerycategories-type');
