@@ -7,6 +7,7 @@ use app\modules\backend\modules\gallery\models\GalleryImages;
 use app\modules\backend\modules\gallery\models\GalleryCategories;
 use app\modules\backend\modules\gallery\models\GalleryImagesSearch;
 use yii\web\Controller;
+use yii\data\ActiveDataProvider;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
@@ -15,6 +16,7 @@ use yii\filters\VerbFilter;
  */
 class GalleryImagesController extends Controller
 {
+
     public function behaviors()
     {
         return [
@@ -34,7 +36,12 @@ class GalleryImagesController extends Controller
     public function actionIndex()
     {
         $searchModel = new GalleryImagesSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $one = GalleryImages::find()->one()->getCategories()->one();
+
+//        $dataProvider = $searchModel->search(GalleryImages::find()->groupBy('category_id'));
+        $dataProvider = new ActiveDataProvider([
+            'query' => GalleryImages::find()->groupBy('category_id'),
+        ]);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -67,12 +74,32 @@ class GalleryImagesController extends Controller
         $categories = [];
         if(!empty($categoriesInstanses)) {
             foreach($categoriesInstanses as $categoryInstance) :
-                $categories[$categoryInstance->id]=$categoryInstance->type;
+                $categories[$categoryInstance->id]=$categoryInstance->title;
             endforeach;
         }
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if(Yii::$app->request->isPost) {
+            $postData = Yii::$app->request->post();
+            $galleryData = $postData[$model->formName()];
+            $galleryImages = explode(',',$galleryData['big_path']);
+            $numberOfImages = sizeof($galleryImages);
+            if($numberOfImages > 0) {
+                for($i=0;$i<$numberOfImages;$i++) {
+                    $model = new GalleryImages();
+                    $model->load([
+                        $model->formName()=>[
+                            'status'=>$galleryData['status'],
+                            'category_id'=>$galleryData['category_id'],
+                            'small_path'=>$galleryImages[$i],
+                            'big_path'=>$galleryImages[$i]
+                        ]
+                    ]);
+                    $model->save();
+                }
+            }
+
+            return $this->redirect(['index']);
+
         } else {
             return $this->render('create', [
                 'model' => $model,

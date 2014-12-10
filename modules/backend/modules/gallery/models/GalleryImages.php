@@ -16,6 +16,12 @@ use Yii;
  */
 class GalleryImages extends \yii\db\ActiveRecord
 {
+    private $pathToSmall;
+
+    private $pathToBig;
+
+    private $fileStorage = 'web/vendors/jquery-fileupload/server/php/files';
+
     /**
      * @inheritdoc
      */
@@ -24,16 +30,36 @@ class GalleryImages extends \yii\db\ActiveRecord
         return 'gallery_images';
     }
 
+    public function getPathToSmall()
+    {
+        return Yii::$app->basePath.'/'.$this->fileStorage.'/thumbnail';
+    }
+
+    public function getPathToBig()
+    {
+        return Yii::$app->basePath.'/'.$this->fileStorage;
+    }
+
+
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['big_path', 'small_path'], 'required'],
+            [['small_path'], 'required'],
             [['status'], 'integer'],
             [['big_path', 'small_path'], 'string', 'max' => 255]
         ];
+    }
+
+
+
+    public function beforeSave($insert)
+    {
+        $this->big_path = $this->getPathToBig().'/'.$this->big_path;
+        $this->small_path = $this->getPathToSmall().'/'.$this->small_path;
+        return parent::beforeSave($insert);
     }
 
     /**

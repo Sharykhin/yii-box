@@ -24,17 +24,32 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
+       // 'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
             'id',
-            'big_path',
-            'small_path',
-            'status',
+            [
+                'attribute'=>'category_id',
+                'value'=>function($item) {
+                        return $item->getCategories()->one()->title;
+                    }
+            ],
+
+            [
+                'attribute' => 'status',
+                'filter'=>[
+                    '1'=>Yii::t('common','Enable'),
+                    '0'=>Yii::t('common','Disable')
+                ],
+                'value' => function($item) {
+                        return ($item->status) ? Yii::t('common','Enable') : Yii::t('common','Disable');
+                    }
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
+
 
 </div>

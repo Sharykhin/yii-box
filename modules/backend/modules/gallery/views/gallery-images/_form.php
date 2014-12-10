@@ -20,6 +20,13 @@ use app\modules\backend\modules\gallery\models\GalleryCategories;
         '0' => Yii::t('common','Disable')
     ]) ?>
 
+    <?php
+        $field = $form->field($model, 'big_path');
+        $field->template = "{input}\n{hint}\n{error}";
+        echo $field->hiddenInput();
+    ?>
+
+
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? Yii::t('base', 'Create') : Yii::t('base', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>

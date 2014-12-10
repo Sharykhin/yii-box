@@ -13,12 +13,20 @@
 
 $(function () {
     'use strict';
-
+    var inputField = $('input[name^=GalleryImages][type=hidden]');
+    var filesToSave = [];
     // Initialize the jQuery File Upload widget:
     $('#fileupload').fileupload({
         // Uncomment the following to send cross-domain cookies:
         //xhrFields: {withCredentials: true},
-        url: '/vendors/jquery-fileupload/server/php/'
+        url: '/vendors/jquery-fileupload/server/php/',
+        success: function(file) {
+
+            for(var i= 0, numberOfFiles = file.files.length; i< numberOfFiles; i++) {
+                filesToSave.push(file.files[i].name);
+            }
+            inputField.val(filesToSave);
+        }
     });
 
     // Enable iframe cross-domain access via redirect option:
@@ -67,6 +75,7 @@ $(function () {
         }).always(function () {
             $(this).removeClass('fileupload-processing');
         }).done(function (result) {
+            console.log('here');
             $(this).fileupload('option', 'done')
                 .call(this, $.Event('done'), {result: result});
         });
