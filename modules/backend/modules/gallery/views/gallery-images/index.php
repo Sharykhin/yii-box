@@ -9,6 +9,7 @@ use app\modules\backend\modules\gallery\Module;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = Module::t('base', 'Gallery: images');
+$this->params['breadcrumbs'][] = ['label' =>  Module::t('base', 'Gallery: images'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="gallery-images-index">
@@ -31,8 +32,11 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             [
                 'attribute'=>'category_id',
+                'format'=>'raw',
                 'value'=>function($item) {
-                        return $item->getCategories()->one()->title;
+                        return ($item->getCategories()->one())
+                            ? Html::a($item->getCategories()->one()->title,['/backend/gallery/gallery-images/images','type'=>$item->getCategories()->one()->type])
+                            : null;
                     }
             ],
 

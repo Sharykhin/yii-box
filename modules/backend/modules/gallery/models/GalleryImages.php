@@ -20,7 +20,7 @@ class GalleryImages extends \yii\db\ActiveRecord
 
     private $pathToBig;
 
-    private $fileStorage = 'web/vendors/jquery-fileupload/server/php/files';
+    private $fileStorage = 'vendors/jquery-fileupload/server/php/files';
 
     /**
      * @inheritdoc
@@ -32,12 +32,12 @@ class GalleryImages extends \yii\db\ActiveRecord
 
     public function getPathToSmall()
     {
-        return Yii::$app->basePath.'/'.$this->fileStorage.'/thumbnail';
+        return Yii::$app->urlManager->baseUrl.'/'.$this->fileStorage.'/thumbnail';
     }
 
     public function getPathToBig()
     {
-        return Yii::$app->basePath.'/'.$this->fileStorage;
+        return Yii::$app->urlManager->baseUrl.'/'.$this->fileStorage;
     }
 
 

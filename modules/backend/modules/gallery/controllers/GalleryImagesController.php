@@ -36,8 +36,6 @@ class GalleryImagesController extends Controller
     public function actionIndex()
     {
         $searchModel = new GalleryImagesSearch();
-        $one = GalleryImages::find()->one()->getCategories()->one();
-
 //        $dataProvider = $searchModel->search(GalleryImages::find()->groupBy('category_id'));
         $dataProvider = new ActiveDataProvider([
             'query' => GalleryImages::find()->groupBy('category_id'),
@@ -153,6 +151,35 @@ class GalleryImagesController extends Controller
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
+        }
+    }
+
+    public function actionImages($type)
+    {
+        $category = GalleryCategories::findOne(['type'=>$type]);
+        if($category instanceof GalleryCategories) {
+            $images = $category->getImages()->all();
+        }
+        return $this->render('images', [
+            'images' => $images,
+            'category'=>$category
+        ]);
+    }
+
+    public function actionSaveImages()
+    {
+        if(Yii::$app->request->isAjax) {
+            $image = Yii::$app->request->bodyParams['image'];
+            $model = new GalleryImages();
+            $model->load([
+                $model->formName()=>[
+                    'status'=>1,
+                    'category_id'=>5,
+                    'small_path'=>$image,
+                    'big_path'=>$image
+                ]
+            ]);
+            $model->save();
         }
     }
 }

@@ -14,6 +14,11 @@
 $(function () {
     'use strict';
     var inputField = $('input[name^=GalleryImages][type=hidden]');
+    var mod='manage';
+    var saveUrl = window.location.search.match(/^\?r/) ? '?r=backend/gallery/gallery-images/save-images' : '/backend/gallery/gallery-images/save-images';
+    if(inputField.length > 0) {
+        mod='create';
+    }
     var filesToSave = [];
     // Initialize the jQuery File Upload widget:
     $('#fileupload').fileupload({
@@ -22,10 +27,18 @@ $(function () {
         url: '/vendors/jquery-fileupload/server/php/',
         success: function(file) {
 
+
             for(var i= 0, numberOfFiles = file.files.length; i< numberOfFiles; i++) {
                 filesToSave.push(file.files[i].name);
             }
-            inputField.val(filesToSave);
+            if(mod === 'create') {
+                inputField.val(filesToSave);
+            }
+            if(mod === 'manage') {
+                $.post(saveUrl,{image:file.files[0].name},function(data){
+
+                });
+            }
         }
     });
 
@@ -76,8 +89,8 @@ $(function () {
             $(this).removeClass('fileupload-processing');
         }).done(function (result) {
             console.log('here');
-            $(this).fileupload('option', 'done')
-                .call(this, $.Event('done'), {result: result});
+            /*$(this).fileupload('option', 'done')
+                .call(this, $.Event('done'), {result: result});*/
         });
     }
 

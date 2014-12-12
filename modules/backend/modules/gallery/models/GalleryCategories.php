@@ -2,6 +2,7 @@
 
 namespace app\modules\backend\modules\gallery\models;
 use app\modules\backend\modules\gallery\Module;
+use app\modules\backend\modules\gallery\models\GalleryImages;
 use Yii;
 
 /**
@@ -46,5 +47,11 @@ class GalleryCategories extends \yii\db\ActiveRecord
             'status' => Module::t('base', 'Status'),
             'type' =>  Module::t('base', 'Type'),
         ];
+    }
+
+    public function getImages()
+    {
+        //return $this->hasMany(GalleryCategories::className(), ['category_id' => 'id']);
+        return $this->hasMany(GalleryImages::className(), ['category_id' => 'id']);
     }
 }
