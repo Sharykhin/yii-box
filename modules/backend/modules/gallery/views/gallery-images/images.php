@@ -4,18 +4,37 @@ use yii\grid\GridView;
 use app\modules\backend\modules\gallery\Module;
 use app\assets\JqueryFileUpload;
 
+
 $this->title = $category->title;
 $this->params['breadcrumbs'][] = ['label' =>  Module::t('base', 'Gallery: images'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 
 $this->registerJsFile('vendors/jquery-fileupload/js/main.js',['depends'=>[JqueryFileUpload::className()]]);
+$this->registerCssFile('css/modules/backend.common.css');
 ?>
-<div class="gallery-images-index">
+<div class="gallery-images-index" >
     <h1><?= Html::encode($this->title) ?></h1>
     <?php if(!empty($images)) : ?>
-        <ul>
+        <button type="button" class="lunch-demo btn btn-success">Lunch the demo</button>
+        <button type="button" class="btn btn-info show-hide-demo">Hide Demo</button>
+        <div id="blueimp-gallery-carousel" class="blueimp-gallery blueimp-gallery-carousel">
+            <div class="slides">
+                <?php foreach($images as $image) : ?>
+                    <?php $imageArray = explode('/',$image->big_path); $imageName = $imageArray[(sizeof($imageArray)-1)]; ?>
+                    <a href="<?php echo Yii::$app->request->getHostInfo().'/vendors/jquery-fileupload/server/php/files/'.$imageName; ?>" download="<?php echo $imageName; ?>" title="<?php echo $imageName ?>" ><img src="<?php echo $image->small_path; ?>" /></a>
+                <?php endforeach; ?>
+            </div>
+            <h3 class="title"></h3>
+            <a class="prev">‹</a>
+            <a class="next">›</a>
+            <a class="play-pause"></a>
+            <ol class="indicator"></ol>
+        </div>
+
+        <ul class="images-list">
             <?php foreach($images as $image) : ?>
-                <li><a href="#"><img src="<?php echo $image->small_path; ?>" /></a></li>
+                <?php $imageArray = explode('/',$image->big_path); $imageName = $imageArray[(sizeof($imageArray)-1)]; ?>
+                <li><a data-gallery href="<?php echo Yii::$app->request->getHostInfo().'/vendors/jquery-fileupload/server/php/files/'.$imageName; ?>" download="<?php echo $imageName; ?>" title="<?php echo $imageName ?>" ><img src="<?php echo $image->small_path; ?>" /></a></li>
             <?php endforeach; ?>
         </ul>
     <?php endif; ?>

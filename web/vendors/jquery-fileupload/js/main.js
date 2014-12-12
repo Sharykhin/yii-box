@@ -20,6 +20,20 @@ $(function () {
         mod='create';
     }
     var filesToSave = [];
+
+    $('.lunch-demo').on('click',function(){
+        blueimp.Gallery($('#blueimp-gallery-carousel .slides > a'),{
+            container: '#blueimp-gallery-carousel',
+            carousel: true
+        });
+
+
+    });
+    $('.show-hide-demo').on('click',function(){
+        $('#blueimp-gallery-carousel').toggle();
+    });
+
+
     // Initialize the jQuery File Upload widget:
     $('#fileupload').fileupload({
         // Uncomment the following to send cross-domain cookies:
@@ -89,8 +103,8 @@ $(function () {
             $(this).removeClass('fileupload-processing');
         }).done(function (result) {
             console.log('here');
-            /*$(this).fileupload('option', 'done')
-                .call(this, $.Event('done'), {result: result});*/
+            $(this).fileupload('option', 'done')
+                .call(this, $.Event('done'), {result: result});
         });
     }
 
