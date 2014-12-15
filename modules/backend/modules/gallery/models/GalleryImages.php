@@ -13,22 +13,13 @@ use Yii;
  * @property string $small_path
  * @property integer $category_id
  * @property integer $status
+ *
+ * @property GalleryCategories $category
  */
 class GalleryImages extends \yii\db\ActiveRecord
 {
-    private $pathToSmall;
-
-    private $pathToBig;
 
     private $fileStorage = 'vendors/jquery-fileupload/server/php/files';
-
-    /**
-     * @inheritdoc
-     */
-    public static function tableName()
-    {
-        return 'gallery_images';
-    }
 
     public function getPathToSmall()
     {
@@ -40,6 +31,13 @@ class GalleryImages extends \yii\db\ActiveRecord
         return Yii::$app->urlManager->baseUrl.'/'.$this->fileStorage;
     }
 
+    /**
+     * @inheritdoc
+     */
+    public static function tableName()
+    {
+        return 'gallery_images';
+    }
 
     /**
      * @inheritdoc
@@ -47,13 +45,11 @@ class GalleryImages extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['small_path'], 'required'],
-            [['status'], 'integer'],
+            [['big_path', 'small_path', 'category_id'], 'required'],
+            [['category_id', 'status'], 'integer'],
             [['big_path', 'small_path'], 'string', 'max' => 255]
         ];
     }
-
-
 
     public function beforeSave($insert)
     {
@@ -76,9 +72,11 @@ class GalleryImages extends \yii\db\ActiveRecord
         ];
     }
 
-    public function getCategories()
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCategory()
     {
-        //return $this->hasMany(GalleryCategories::className(), ['category_id' => 'id']);
         return $this->hasOne(GalleryCategories::className(), ['id' => 'category_id']);
     }
 }

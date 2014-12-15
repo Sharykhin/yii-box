@@ -102,9 +102,24 @@ $(function () {
         }).always(function () {
             $(this).removeClass('fileupload-processing');
         }).done(function (result) {
-            console.log('here');
+            if(mod === 'create') return true;
+
+
             $(this).fileupload('option', 'done')
                 .call(this, $.Event('done'), {result: result});
+            var allFiles = $('.files .name > a');
+
+            var imagesNames = [];
+            $('.images-list li a').each(function(){
+                imagesNames.push($(this).attr('title'));
+            });
+            allFiles.each(function(){
+
+                if($.inArray($.trim($(this).attr('title')),imagesNames) === -1) {
+                    $(this).parents('tr').remove();
+                }
+            });
+
         });
     }
 

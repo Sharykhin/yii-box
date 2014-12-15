@@ -72,7 +72,10 @@ class GalleryImagesController extends Controller
         $categories = [];
         if(!empty($categoriesInstanses)) {
             foreach($categoriesInstanses as $categoryInstance) :
-                $categories[$categoryInstance->id]=$categoryInstance->title;
+                $hasImages = sizeof($categoryInstance->getImages()->all()) ? true : false;
+                if(!$hasImages) {
+                    $categories[$categoryInstance->id]=$categoryInstance->title;
+                }
             endforeach;
         }
 

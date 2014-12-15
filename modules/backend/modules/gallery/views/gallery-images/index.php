@@ -34,8 +34,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute'=>'category_id',
                 'format'=>'raw',
                 'value'=>function($item) {
-                        return ($item->getCategories()->one())
-                            ? Html::a($item->getCategories()->one()->title,['/backend/gallery/gallery-images/images','type'=>$item->getCategories()->one()->type])
+                        return ($item->getCategory()->one())
+                            ? Html::a($item->getCategory()->one()->title,['/backend/gallery/gallery-images/images','type'=>$item->getCategory()->one()->type])
                             : null;
                     }
             ],
