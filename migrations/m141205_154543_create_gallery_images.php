@@ -12,7 +12,10 @@ class m141205_154543_create_gallery_images extends Migration
             'big_path' => Schema::TYPE_STRING . ' NOT NULL',
             'small_path'=>Schema::TYPE_TEXT. ' NOT NULL',
             'status' => Schema::TYPE_INTEGER . ' NOT NULL',
+            'category_id'=>Schema::TYPE_INTEGER.' NOT NULL',
         ]);
+
+        $this->addForeignKey('category_key','gallery_images','category_id','gallery_categories','id','cascade','cascade');
     }
 
     public function down()

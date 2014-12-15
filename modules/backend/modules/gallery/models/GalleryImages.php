@@ -47,7 +47,6 @@ class GalleryImages extends \yii\db\ActiveRecord
         return [
             [['big_path', 'small_path', 'category_id'], 'required'],
             [['category_id', 'status'], 'integer'],
-            [['big_path', 'small_path'], 'string', 'max' => 255]
         ];
     }
 

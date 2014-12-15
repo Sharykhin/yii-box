@@ -129,16 +129,14 @@ class GalleryImagesController extends Controller
     }
 
     /**
-     * Deletes an existing GalleryImages model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
-     * @return mixed
+     * @param $file
+     * @return \yii\web\Response
      */
-    public function actionDelete($id)
+    public function actionDelete($file)
     {
-        $this->findModel($id)->delete();
+        $galleryModel = new GalleryImages();
+        GalleryImages::findOne(['big_path'=>$galleryModel->getPathToBig().'/'.$file])->delete();
 
-        return $this->redirect(['index']);
     }
 
     /**

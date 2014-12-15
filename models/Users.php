@@ -52,7 +52,8 @@ class Users extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
 
     public function afterFind()
     {
-        $this->role=array_keys(Yii::$app->authManager->getRolesByUser($this->id))[0];
+        $rolesArray = array_keys(Yii::$app->authManager->getRolesByUser($this->id));
+        $this->role = (!empty($rolesArray)) ?  $rolesArray[0] : false;
     }
 
     public function beforeSave($insert)

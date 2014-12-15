@@ -538,6 +538,31 @@
                 context: button.closest('.template-download'),
                 type: 'DELETE'
             }, button.data()));
+            console.log(button.data());
+            var dataArray = button.data().url.split("?file=");
+            var filename = dataArray[1];
+            var decodedName = decodeURIComponent(filename)
+            $('.images-list li a').each(function(){
+                if($(this).attr('title') === decodedName) {
+                    $(this).parents('li').fadeOut(function(){
+                       $(this).remove();
+                    });
+                }
+            });
+            $('#blueimp-gallery-carousel .slides > a').each(function(){
+                if($(this).attr('title') === decodedName) {
+                    $(this).fadeOut(function(){
+                        $(this).remove();
+                    });
+                }
+            });
+            
+            var url = (window.location.href.match(/\?r=/))
+                    ? '/?r=backend/gallery/gallery-images/delete/&file='+filename
+                    : '/backend/gallery/gallery-images/delete/file/'+filename
+            $.post(url,function(response){
+
+            });
         },
 
         _forceReflow: function (node) {
