@@ -45,7 +45,7 @@ class GalleryImages extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['big_path', 'small_path', 'category_id'], 'required'],
+            [['category_id'], 'required'],
             [['category_id', 'status'], 'integer'],
         ];
     }

@@ -15,6 +15,12 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="gallery-images-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
+    <?php if(Yii::$app->session->hasFlash('success')) { ?>
+        <div class="alert alert-success" role="alert">
+            <?php echo Yii::$app->session->getFlash('success'); ?>
+        </div>
+    <?php } ?>
+
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
@@ -47,11 +53,36 @@ $this->params['breadcrumbs'][] = $this->title;
                     '0'=>Yii::t('common','Disable')
                 ],
                 'value' => function($item) {
-                        return ($item->status) ? Yii::t('common','Enable') : Yii::t('common','Disable');
+                        return ($item->getCategory()->one()->status) ? Yii::t('common','Enable') : Yii::t('common','Disable');
                     }
             ],
 
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+              'label'=>Module::t('base','Images number'),
+              'value'=>function($item) {
+                       return $item->getCategory()->one()->getImages()->count();
+               }
+            ],
+
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'template'=> '{update} {delete}',
+                'buttons'=>[
+                    'update' => function ($url, $model, $key) {
+                            $url=['/backend/gallery/gallery-images/images','type'=>$model->getCategory()->one()->type];
+                            return Html::a('<span class="glyphicon glyphicon-picture"></span>', $url);
+                        },
+                    'delete' => function($url,$model) {
+                            $url=['/backend/gallery/gallery-images/remove-gallery','id'=>$model->getCategory()->one()->id];
+                            return Html::a('<span class="glyphicon glyphicon-trash"></span>', $url,[
+                                'data-confirm'=>Yii::t('app','Are you sure to delete your avatar?'),
+                                'data-method'=>'post',
+                                'data-pjax'=>0
+                            ]);
+                    }
+                ]
+
+            ],
         ],
     ]); ?>
 

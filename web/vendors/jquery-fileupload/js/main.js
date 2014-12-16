@@ -15,9 +15,12 @@ $(function () {
     'use strict';
     var inputField = $('input[name^=GalleryImages][type=hidden]');
     var mod='manage';
+    var defaultUrl = window.location.search.match(/^\?r/) ? '?r=backend/gallery/gallery-images/' : '/backend/gallery/gallery-images/';
     var saveUrl = window.location.search.match(/^\?r/) ? '?r=backend/gallery/gallery-images/save-images' : '/backend/gallery/gallery-images/save-images';
     if(inputField.length > 0) {
         mod='create';
+    } else {
+        var categoryId = $('input[name="category_id"]').val();
     }
     var filesToSave = [];
 
@@ -29,9 +32,17 @@ $(function () {
 
 
     });
+
     $('.show-hide-demo').on('click',function(){
         $('#blueimp-gallery-carousel').toggle();
     });
+
+    function updateImages()
+    {
+        $.post(defaultUrl + 'images-list',{category_id:categoryId},function(response){
+                $('.images-list').html(response);
+        });
+    }
 
 
     // Initialize the jQuery File Upload widget:
@@ -49,8 +60,9 @@ $(function () {
                 inputField.val(filesToSave);
             }
             if(mod === 'manage') {
-                $.post(saveUrl,{image:file.files[0].name},function(data){
 
+                $.post(saveUrl,{image:file.files[0].name,category_id:categoryId},function(data){
+                        updateImages();
                 });
             }
         }

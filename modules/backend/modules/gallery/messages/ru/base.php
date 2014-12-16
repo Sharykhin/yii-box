@@ -10,5 +10,7 @@ return [
     'Update  category' => 'Редактирование категории',
     'Status'=>'Статус',
     'Type' => 'Тип',
+    'Gallery has been deleted successfully'=>'Галлерея была удалена успешно',
+    'Images number'=>'Количество картинок'
 
 ];

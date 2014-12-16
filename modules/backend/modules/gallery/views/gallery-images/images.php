@@ -14,6 +14,7 @@ $this->registerCssFile('css/modules/backend.common.css');
 ?>
 <div class="gallery-images-index" >
     <h1><?= Html::encode($this->title) ?></h1>
+    <input type="hidden" name="category_id" value="<?php echo $category->id; ?>" />
     <?php if(!empty($images)) : ?>
         <button type="button" class="lunch-demo btn btn-success">Lunch the demo</button>
         <button type="button" class="btn btn-info show-hide-demo">Hide Demo</button>
