@@ -1,4 +1,5 @@
 <?php
+use app\modules\backend\modules\gallery\widgets\GalleryWidget;
 /* @var $this yii\web\View */
 $this->title = 'My Yii Application';
 ?>
@@ -49,3 +50,4 @@ $this->title = 'My Yii Application';
 
     </div>
 </div>
+

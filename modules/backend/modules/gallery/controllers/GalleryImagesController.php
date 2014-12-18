@@ -148,9 +148,10 @@ class GalleryImagesController extends Controller
             foreach($images as $image) :
                 @unlink(Yii::$app->basePath.'/web'.$image->big_path);
                 @unlink(Yii::$app->basePath.'/web'.$image->small_path);
+                $image->delete();
             endforeach;
         }
-        GalleryCategories::findOne(['id'=>$id])->delete();
+
         Yii::$app->getSession()->setFlash('success', Module::t('base','Gallery has been deleted successfully'));
         return $this->redirect(['index']);
     }

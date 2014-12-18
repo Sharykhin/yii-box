@@ -7,9 +7,7 @@ use app\modules\backend\modules\gallery\Module;
 /* @var $this yii\web\View */
 /* @var $model app\modules\backend\modules\gallery\models\GalleryImages */
 
-$this->title = Yii::t('base', 'Create {modelClass}', [
-    'modelClass' => 'Gallery Images',
-]);
+$this->title = Module::t('base', 'Create Gallery',[]);
 $this->params['breadcrumbs'][] = ['label' =>  Module::t('base', 'Gallery: images'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

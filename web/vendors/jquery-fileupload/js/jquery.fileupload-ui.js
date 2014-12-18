@@ -538,31 +538,49 @@
                 context: button.closest('.template-download'),
                 type: 'DELETE'
             }, button.data()));
-            console.log(button.data());
             var dataArray = button.data().url.split("?file=");
             var filename = dataArray[1];
-            var decodedName = decodeURIComponent(filename)
-            $('.images-list li a').each(function(){
-                if($(this).attr('title') === decodedName) {
-                    $(this).parents('li').fadeOut(function(){
-                       $(this).remove();
-                    });
-                }
-            });
-            $('#blueimp-gallery-carousel .slides > a').each(function(){
-                if($(this).attr('title') === decodedName) {
-                    $(this).fadeOut(function(){
-                        $(this).remove();
-                    });
-                }
-            });
-            
-            var url = (window.location.href.match(/\?r=/))
-                    ? '/?r=backend/gallery/gallery-images/delete/&file='+filename
-                    : '/backend/gallery/gallery-images/delete/file/'+filename
-            $.post(url,function(response){
+            var decodedName = decodeURIComponent(filename);
+            var inputField = $('input[name^=GalleryImages][type=hidden]');
+            var mod='manage';
+            if(inputField.length > 0) {
+                mod='create';
+            }
+            if(mod === 'manage') {
+                $('.images-list li a').each(function(){
+                    if($(this).attr('title') === decodedName) {
+                        $(this).parents('li').fadeOut(function(){
+                           $(this).remove();
+                        });
+                    }
+                });
+                $('#blueimp-gallery-carousel .slides > a').each(function(){
+                    if($(this).attr('title') === decodedName) {
+                        $(this).fadeOut(function(){
+                            $(this).remove();
+                        });
+                    }
+                });
 
-            });
+                var url = (window.location.href.match(/\?r=/))
+                        ? '/?r=backend/gallery/gallery-images/delete/&file='+filename
+                        : '/backend/gallery/gallery-images/delete/file/'+filename
+                $.post(url,function(response){
+
+                });
+            }
+            if(mod==='create') {
+                var images = inputField.val().split(',');
+                console.log(images);
+                var newImages=[];
+                for(var i= 0, len=images.length;i<len;i++) {
+                    if(filename !== images[i]) {
+                        newImages.push(images[i]);
+                    }
+                }
+                console.log(newImages);
+                inputField.val(newImages.join(","));
+            }
         },
 
         _forceReflow: function (node) {

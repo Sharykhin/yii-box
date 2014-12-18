@@ -45,7 +45,8 @@ class GalleryImages extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['category_id'], 'required'],
+            [['small_path', 'category_id'], 'required'],
+            [['big_path'],'required','message'=>Module::t('base','You should upload at least one photo')],
             [['category_id', 'status'], 'integer'],
         ];
     }

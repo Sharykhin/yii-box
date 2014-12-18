@@ -11,6 +11,8 @@ return [
     'Status'=>'Статус',
     'Type' => 'Тип',
     'Gallery has been deleted successfully'=>'Галлерея была удалена успешно',
-    'Images number'=>'Количество картинок'
+    'Images number'=>'Количество картинок',
+    'Create Gallery'=>'Создать галлерею',
+    'You should upload at least one photo'=>'Вы должны загрузить хотя бы одно фото'
 
 ];
