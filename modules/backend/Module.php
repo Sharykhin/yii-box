@@ -20,6 +20,9 @@ class Module extends \yii\base\Module
             ],
             'gallery'=>[
                 'class'=>'app\modules\backend\modules\gallery\Module'
+            ],
+            'catalog' => [
+                'class' => 'app\modules\backend\modules\catalog\Module'
             ]
         ];
         $this->registerTranslations();
