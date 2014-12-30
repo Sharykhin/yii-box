@@ -3,6 +3,7 @@
 namespace app\modules\backend\modules\catalog\models;
 
 use Yii;
+use app\modules\backend\modules\catalog\Module;
 
 /**
  * This is the model class for table "catalog_products".
@@ -33,12 +34,22 @@ class CatalogProducts extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['title', 'description', 'status', 'date_created', 'date_modified', 'category_id'], 'required'],
+            [['title', 'description', 'status', 'category_id'], 'required'],
             [['description'], 'string'],
             [['status', 'category_id'], 'integer'],
             [['date_created', 'date_modified'], 'safe'],
             [['title'], 'string', 'max' => 255]
         ];
+    }
+
+    public function beforeSave($insert)
+    {
+        $date = new \DateTime();
+        $this->date_modified=$date->format("Y-m-d H:i:s");
+        if($insert) {
+            $this->date_created=$date->format("Y-m-d H:i:s");
+        }
+        return parent::beforeSave($insert);
     }
 
     /**
@@ -47,13 +58,13 @@ class CatalogProducts extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('base', 'ID'),
-            'title' => Yii::t('base', 'Title'),
-            'description' => Yii::t('base', 'Description'),
-            'status' => Yii::t('base', 'Status'),
-            'date_created' => Yii::t('base', 'Date Created'),
-            'date_modified' => Yii::t('base', 'Date Modified'),
-            'category_id' => Yii::t('base', 'Category ID'),
+            'id' => Module::t('base', 'ID'),
+            'title' => Module::t('base', 'Title'),
+            'description' => Module::t('base', 'Description'),
+            'status' => Module::t('base', 'Status'),
+            'date_created' => Module::t('base', 'Date Created'),
+            'date_modified' => Module::t('base', 'Date Modified'),
+            'category_id' => Module::t('base', 'Category'),
         ];
     }
 

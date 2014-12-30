@@ -16,16 +16,15 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'status')->textInput() ?>
+    <?= $form->field($model, 'category_id')->dropDownList($categories) ?>
 
-    <?= $form->field($model, 'date_created')->textInput() ?>
-
-    <?= $form->field($model, 'date_modified')->textInput() ?>
-
-    <?= $form->field($model, 'category_id')->textInput() ?>
+    <?= $form->field($model, 'status')->dropDownList([
+        '1'=>Yii::t('common','Enable'),
+        '0'=>Yii::t('common','Disable'),
+    ]) ?>
 
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? Yii::t('base', 'Create') : Yii::t('base', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($model->isNewRecord ? Yii::t('common', 'Create') : Yii::t('common', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

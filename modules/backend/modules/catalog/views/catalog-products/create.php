@@ -1,15 +1,14 @@
 <?php
 
 use yii\helpers\Html;
+use app\modules\backend\modules\catalog\Module;
 
 
 /* @var $this yii\web\View */
 /* @var $model app\modules\backend\modules\catalog\models\CatalogProducts */
 
-$this->title = Yii::t('base', 'Create {modelClass}', [
-    'modelClass' => 'Catalog Products',
-]);
-$this->params['breadcrumbs'][] = ['label' => Yii::t('base', 'Catalog Products'), 'url' => ['index']];
+$this->title = Module::t('base', 'Add product', []);
+$this->params['breadcrumbs'][] = ['label' => Module::t('base', 'Catalog Products'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="catalog-products-create">
@@ -18,6 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= $this->render('_form', [
         'model' => $model,
+        'categories'=>$categories
     ]) ?>
 
 </div>

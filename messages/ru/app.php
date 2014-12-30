@@ -13,6 +13,7 @@ return [
     'Role'=>'Роль',
     'Avatar'=>'Фотография',
     'Remove Avatar'=>'Удалить Фотографию',
-    'Are you sure to delete your avatar?'=>'Вы уверены что хотите удалить вашу фотографию?'
+    'Are you sure to delete your avatar?'=>'Вы уверены, что хотите удалить вашу фотографию?',
+    'Are you sure you want to delete this item?' => 'Вы уверены, что хотите удалить этот элемент,'
 
 ];

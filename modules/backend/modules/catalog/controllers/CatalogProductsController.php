@@ -8,6 +8,7 @@ use app\modules\backend\modules\catalog\models\CatalogProductsSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use app\modules\backend\modules\catalog\models\CatalogCategories;
 
 /**
  * CatalogProductsController implements the CRUD actions for CatalogProducts model.
@@ -34,10 +35,11 @@ class CatalogProductsController extends Controller
     {
         $searchModel = new CatalogProductsSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
+        $categories = CatalogCategories::getAvailableCategories();
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'categories'=>$categories,
         ]);
     }
 
@@ -61,12 +63,13 @@ class CatalogProductsController extends Controller
     public function actionCreate()
     {
         $model = new CatalogProducts();
-
+        $categories = CatalogCategories::getAvailableCategories();
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
                 'model' => $model,
+                'categories'=>$categories
             ]);
         }
     }
@@ -80,12 +83,13 @@ class CatalogProductsController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
+        $categories = CatalogCategories::getAvailableCategories($id);
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
                 'model' => $model,
+                'categories'=>$categories
             ]);
         }
     }

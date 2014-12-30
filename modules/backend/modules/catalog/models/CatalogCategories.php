@@ -3,6 +3,7 @@
 namespace app\modules\backend\modules\catalog\models;
 
 use Yii;
+use app\modules\backend\modules\catalog\Module;
 
 /**
  * This is the model class for table "catalog_categories".
@@ -44,10 +45,10 @@ class CatalogCategories extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('base', 'ID'),
-            'title' => Yii::t('base', 'Title'),
-            'parent_id' => Yii::t('base', 'Parent ID'),
-            'status' => Yii::t('base', 'Status'),
+            'id' => Module::t('base', 'ID'),
+            'title' => Module::t('base', 'Title'),
+            'parent_id' => Module::t('base', 'Parent'),
+            'status' => Module::t('base', 'Status'),
         ];
     }
 
@@ -73,5 +74,20 @@ class CatalogCategories extends \yii\db\ActiveRecord
     public function getCatalogProducts()
     {
         return $this->hasMany(CatalogProducts::className(), ['category_id' => 'id']);
+    }
+
+    public static function getAvailableCategories($id=false)
+    {
+        $categories = [];
+        $availableCategories =  CatalogCategories::find()->all();
+        if(!empty($availableCategories)) :
+            foreach($availableCategories as $availableCategory) :
+                if($id !== false && $id && (intval($availableCategory->id) === intval($id))) :
+                    continue;
+                endif;
+                $categories[$availableCategory->id]=$availableCategory->title;
+            endforeach;
+        endif;
+        return $categories;
     }
 }

@@ -1,16 +1,15 @@
 <?php
 
 use yii\helpers\Html;
+use app\modules\backend\modules\catalog\Module;
 
 /* @var $this yii\web\View */
 /* @var $model app\modules\backend\modules\catalog\models\CatalogCategories */
 
-$this->title = Yii::t('base', 'Update {modelClass}: ', [
-    'modelClass' => 'Catalog Categories',
-]) . ' ' . $model->title;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('base', 'Catalog Categories'), 'url' => ['index']];
+$this->title = Module::t('base', 'Update Category: ', []) . ' ' . $model->title;
+$this->params['breadcrumbs'][] = ['label' => Module::t('base', 'Catalog Categories'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->title, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = Yii::t('base', 'Update');
+$this->params['breadcrumbs'][] = Yii::t('common', 'Update');
 ?>
 <div class="catalog-categories-update">
 
@@ -18,6 +17,7 @@ $this->params['breadcrumbs'][] = Yii::t('base', 'Update');
 
     <?= $this->render('_form', [
         'model' => $model,
+        'categories' => $categories
     ]) ?>
 
 </div>

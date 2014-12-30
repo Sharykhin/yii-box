@@ -34,10 +34,11 @@ class CatalogCategoriesController extends Controller
     {
         $searchModel = new CatalogCategoriesSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
+        $categories = CatalogCategories::getAvailableCategories();
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'categories'=>$categories,
         ]);
     }
 
@@ -61,12 +62,13 @@ class CatalogCategoriesController extends Controller
     public function actionCreate()
     {
         $model = new CatalogCategories();
-
+        $categories = CatalogCategories::getAvailableCategories();
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
                 'model' => $model,
+                'categories' =>$categories
             ]);
         }
     }
@@ -80,15 +82,18 @@ class CatalogCategoriesController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
+        $categories = CatalogCategories::getAvailableCategories($id);
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
                 'model' => $model,
+                'categories'=>$categories,
             ]);
         }
     }
+
+
 
     /**
      * Deletes an existing CatalogCategories model.
