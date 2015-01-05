@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use app\modules\backend\modules\catalog\Module;
+use app\modules\backend\modules\catalog\models\CatalogProducts;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\modules\backend\modules\catalog\models\CatalogProductsSearch */
@@ -44,6 +45,13 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => function($item) {
                         return ($item->status) ? Yii::t('common','Enable'): Yii::t('common','Disable');
                     }
+            ],
+            [
+              'attribute' => 'photo_cropped',
+              'format'=>'raw',
+              'value'=>function($item) {
+                       return '<img width="80" src="/'.CatalogProducts::UPLOADS_PRODUCTS_DIR.'/'.$item->photo_cropped.'" />';
+               }
             ],
 
             'date_created',

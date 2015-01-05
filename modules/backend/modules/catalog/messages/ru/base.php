@@ -15,4 +15,6 @@ return [
     'Parent' => 'Вложен в',
     'Update Category: ' => 'Редактировать категорию: ',
     'Update product: ' => 'Редактировать продукст: ',
+    'Photo' => 'Фотография',
+    'Photo Cropped' => 'Миниатюра'
 ];

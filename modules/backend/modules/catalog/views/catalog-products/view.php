@@ -42,6 +42,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'category_id',
                 'value' => $model->getCategory()->one()->title
             ],
+            [
+                'attribute'=>'photo',
+                'format'=>'raw',
+                'value'=>'<img src="/'.$model::UPLOADS_PRODUCTS_DIR.'/'.$model->photo.'" />'
+            ]
 
         ],
     ]) ?>

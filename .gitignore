@@ -31,7 +31,7 @@ web/uploads/users/avatars/*.jpg
 
 web/uploads/.thumbs/*
 web/uploads/images/*
-
+web/uploads/products/*
 
 #db params
 config/db.php
