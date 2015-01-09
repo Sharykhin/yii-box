@@ -4,6 +4,7 @@ namespace app\modules\backend\modules\catalog\models;
 
 use Yii;
 use app\modules\backend\modules\catalog\Module;
+use app\modules\backend\modules\catalog\models\CatalogProducts;
 
 /**
  * This is the model class for table "catalog_categories".
@@ -50,6 +51,25 @@ class CatalogCategories extends \yii\db\ActiveRecord
             'parent_id' => Module::t('base', 'Parent'),
             'status' => Module::t('base', 'Status'),
         ];
+    }
+
+    public function beforeSave($insert)
+    {
+        if(intval($this->parent_id ) === 0) {
+            $this->parent_id = NULL;
+        }
+        return parent::beforeSave($insert);
+    }
+
+    public function beforeDelete()
+    {
+        $products = CatalogProducts::findAll(['category_id'=>$this->id]);
+        if(sizeof($products)) {
+            foreach($products as $product) :
+                $product->delete();
+            endforeach;
+        }
+        return parent::beforeDelete();
     }
 
     /**

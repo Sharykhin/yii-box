@@ -62,7 +62,10 @@ class CatalogCategoriesController extends Controller
     public function actionCreate()
     {
         $model = new CatalogCategories();
+
         $categories = CatalogCategories::getAvailableCategories();
+        $categories[0]=NULL;
+        ksort($categories);
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {

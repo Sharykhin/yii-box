@@ -33,7 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'title',
             [
               'attribute' => 'parent_id',
-              'value' => $model->getParent()->one()->title
+              'value' => (!is_null($model->parent_id)) ? $model->getParent()->one()->title : NULL
             ],
             [
                 'attribute'=>'status',

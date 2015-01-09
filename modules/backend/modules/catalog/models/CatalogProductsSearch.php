@@ -45,19 +45,27 @@ class CatalogProductsSearch extends CatalogProducts
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'pagination' => [
+                'pageSize' => 15,
+            ],
         ]);
 
         if (!($this->load($params) && $this->validate())) {
             return $dataProvider;
         }
 
+
         $query->andFilterWhere([
             'id' => $this->id,
             'status' => $this->status,
-            'date_created' => $this->date_created,
             'date_modified' => $this->date_modified,
             'category_id' => $this->category_id,
         ]);
+        if($this->date_created) {
+            $query->orWhere('date_created <= :date_created',[':date_created'=>$this->date_created]);
+        }
+
+
 
         $query->andFilterWhere(['like', 'title', $this->title])
             ->andFilterWhere(['like', 'description', $this->description]);

@@ -21,7 +21,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a(Module::t('base', 'Add product', []), ['create'], ['class' => 'btn btn-success']) ?>
         <?= Html::a(Module::t('base', 'Manage categories', []), ['/backend/catalog/catalog-categories'], ['class' => 'btn btn-info']) ?>
     </p>
-
+    <?php \yii\widgets\Pjax::begin(); ?>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
@@ -53,8 +53,13 @@ $this->params['breadcrumbs'][] = $this->title;
                        return '<img width="80" src="/'.CatalogProducts::UPLOADS_PRODUCTS_DIR.'/'.$item->photo_cropped.'" />';
                }
             ],
-
-            'date_created',
+            [
+              'attribute'=>'date_created',
+               'value'=>function($item) {
+                       $dateTime = new \DateTime($item->date_created);
+                       return $dateTime->format("Y-m-d H:i");
+                   }
+            ],
             [
                 'attribute' => 'category_id',
                 'filter'=>$categories,
@@ -68,5 +73,10 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
+    <?php
+    \app\assets\BootstrapDatePickerAsset::register($this);
+    $this->registerJs('$(\'table input[name^="CatalogProductsSearch[date_"]\').datepicker({ format: \'yyyy-mm-dd\'});');
+    ?>
+    <?php \yii\widgets\Pjax::end(); ?>
 
 </div>
