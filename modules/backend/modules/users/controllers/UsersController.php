@@ -32,6 +32,7 @@ class UsersController extends Controller
      */
     public function actionIndex()
     {
+
         $searchModel = new UsersSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 

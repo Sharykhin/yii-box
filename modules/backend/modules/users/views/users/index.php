@@ -49,7 +49,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'label'=>Yii::t('app','Avatar'),
                 'value'=>function($model) {
                     $avatar = ($model->avatar) ? $model->avatar : 'default_avatar.jpg';
-                    return Html::img('uploads/users/avatars/'.$avatar,['width'=>80]);
+                    return Html::img('/uploads/users/avatars/'.$avatar,['width'=>80]);
                 }
             ],
 

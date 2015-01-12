@@ -10,7 +10,7 @@ $this->params['breadcrumbs'][] = ['label' =>  Module::t('base', 'Gallery: images
 $this->params['breadcrumbs'][] = $this->title;
 
 $this->registerJsFile('vendors/jquery-fileupload/js/main.js',['depends'=>[JqueryFileUpload::className()]]);
-$this->registerCssFile('css/modules/backend.common.css');
+$this->registerCssFile('/css/modules/backend.common.css');
 ?>
 <div class="gallery-images-index" >
     <h1><?= Html::encode($this->title) ?></h1>

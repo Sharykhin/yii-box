@@ -14,12 +14,12 @@ $config = [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'hTt09TR6TS7H9e1q3d3HtApO_2xcRMAb',
         ],
-//        'urlManager' => [
-//            'enablePrettyUrl' => true,
-//            'showScriptName' => false,
-//            'enableStrictParsing' => true,
-//            'rules' => require __DIR__.'/routes.php'
-//        ],
+        'urlManager' => [
+            'enablePrettyUrl' => true,
+            'showScriptName' => false,
+            'enableStrictParsing' => true,
+            'rules' => require __DIR__.'/routes.php'
+        ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
