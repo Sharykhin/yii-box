@@ -14,6 +14,7 @@ class m141112_053609_create_users_table extends Migration
             'password'=> Schema::TYPE_STRING . ' NOT NULL',
             'first_name'=> Schema::TYPE_STRING . '  NULL',
             'last_name'=> Schema::TYPE_STRING . '  NULL',
+            'avatar' => Schema::TYPE_STRING. ' NULL'
 
         ]);
 

@@ -10,6 +10,9 @@ class m141230_045307_create_catalog_products_table extends Migration
         $this->createTable('catalog_products',[
             'id' => 'pk',
             'title' => Schema::TYPE_STRING . ' NOT NULL',
+            'photo' => Schema::TYPE_STRING. ' NULL',
+            'photo_crop' => Schema::TYPE_STRING . ' NULL',
+            'photo_cropped' => Schema::TYPE_STRING . ' NULL',
             'description' => Schema::TYPE_TEXT. ' NOT NULL',
             'date_created' => Schema::TYPE_DATE.' NOT NULL',
             'date_modified' => Schema::TYPE_DATE. 'NOT NULL',
